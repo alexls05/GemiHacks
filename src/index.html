@@ -4,119 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gemini Chatbot</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #1e1e1e;
-      margin: 0;
-      padding: 0;
-    }
-
-    h1 {
-      text-align: center;
-      color: #ffffff;
-      margin-top: 20px;
-      font-size: 2em;
-    }
-
-    #chat-container {
-      max-width: 700px;
-      margin: 30px auto;
-      padding: 20px;
-      background-color: #2c2c2c;
-      border-radius: 16px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    #messages {
-      height: 350px;
-      overflow-y: auto;
-      background-color: #1a1a1a;
-      padding: 15px;
-      border-radius: 12px;
-      border: 1px solid #444;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .message {
-      padding: 10px 14px;
-      border-radius: 12px;
-      max-width: 75%;
-      word-wrap: break-word;
-      line-height: 1.4;
-    }
-
-    .user-message {
-      background-color: #0078d7;
-      align-self: flex-end;
-      color: white;
-    }
-
-    .ai-message {
-      background-color: #3a3a3a;
-      color: #f0f0f0;
-      align-self: flex-start;
-    }
-
-    #input-area {
-      display: flex;
-      gap: 10px;
-    }
-
-    #user-input {
-      flex: 1;
-      padding: 10px;
-      border-radius: 10px;
-      border: none;
-      background-color: #444;
-      color: white;
-      font-size: 1em;
-      outline: none;
-    }
-
-    #user-input::placeholder {
-      color: #aaa;
-    }
-
-    #send-btn {
-      padding: 10px 20px;
-      border-radius: 10px;
-      background-color: #0078d7;
-      color: white;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.2s ease;
-    }
-
-    #send-btn:hover {
-      background-color: #005fa3;
-    }
-    @keyframes blink {
-    0%   { opacity: 0.2; }
-    50%  { opacity: 1; }
-    100% { opacity: 0.2; }
-    }
-
-  /* Optional fancy animated dots for typing effect */
-    .typing::after {
-        content: '...';
-        animation: blink 1s infinite;
-    }
-  </style>
+  <link rel = "stylesheet" href = "styles.css">
 </head>
 <body>
   <h1>Gemini Chatbot</h1>
   <div id="chat-container">
     <div id="messages"></div>
     <div id="input-area">
-      <input type="text" id="user-input" placeholder="Type your message here..." />
+      <textarea id="user-input" placeholder="Type your message here..." rows="2"></textarea>
       <button id="send-btn">Send</button>
     </div>
   </div>
@@ -125,6 +20,11 @@
   const messagesDiv = document.getElementById('messages');
   const userInput = document.getElementById('user-input');
   const sendBtn = document.getElementById('send-btn');
+
+  userInput.addEventListener('input', () => {
+  userInput.style.height = 'auto';
+  userInput.style.height = `${userInput.scrollHeight}px`;
+    });
 
   // Function to render rich text
   function renderRichText(text) {
