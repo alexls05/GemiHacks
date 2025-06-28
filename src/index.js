@@ -19,6 +19,7 @@ const aiInstance = new GoogleGenAI({
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'styles'))); // Serve static files from the 'styles' directory
+app.use(express.static(path.join(__dirname, 'src')));
 
 // Pass the AI instance to the Chatbot class
 const chatbot = new Chatbot(aiInstance);

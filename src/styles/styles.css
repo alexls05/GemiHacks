@@ -1,12 +1,12 @@
-    body {
+body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 30px;
       padding: 0;
       font-size: 1rem;
     }
 
-    image {
-        background-image: url("picture.jpg");
+    .image {
+        background-image: url("../picture.jpg");
         filter: blur(4px);
         -webkit-filter: blur(8px);
         height: 100%;
