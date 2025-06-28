@@ -126,16 +126,35 @@
   const userInput = document.getElementById('user-input');
   const sendBtn = document.getElementById('send-btn');
 
-    // Fetch and display the initial prompt response
-    async function fetchInitialResponse() {
+  // Function to render rich text
+  function renderRichText(text) {
+    const div = document.createElement('div');
+    div.classList.add('message', 'ai-message');
+    div.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold text
+                        .replace(/\n/g, '<br>') // Line breaks
+                        .replace(/(\d+\. )(.*?)(\n|$)/g, '<li>$2</li>'); // Numbered lists
+    return div;
+  }
+
+  // Fetch and display the initial prompt response
+  async function fetchInitialResponse() {
+    try {
       const response = await fetch('/start');
       const data = await response.json();
-      const initialMessageDiv = document.createElement('div');
-      initialMessageDiv.textContent = `Gemini: ${data.response}`;
-      messagesDiv.appendChild(initialMessageDiv);
-    }
 
-    fetchInitialResponse();
+      // Render the initial response
+      const initialMessageDiv = renderRichText(data.response);
+      messagesDiv.appendChild(initialMessageDiv);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    } catch (err) {
+      const errorDiv = document.createElement('div');
+      errorDiv.classList.add('message', 'ai-message');
+      errorDiv.textContent = 'Error: Could not fetch initial response.';
+      messagesDiv.appendChild(errorDiv);
+    }
+  }
+
+  fetchInitialResponse();
 
   sendBtn.addEventListener('click', async () => {
     const userMessage = userInput.value.trim();
@@ -171,13 +190,10 @@
       // Remove typing indicator
       typingDiv.remove();
 
-      // Display actual response
-      const aiMessageDiv = document.createElement('div');
-      aiMessageDiv.classList.add('message', 'ai-message');
-      aiMessageDiv.textContent = data.response;
+      // Render AI response
+      const aiMessageDiv = renderRichText(data.response);
       messagesDiv.appendChild(aiMessageDiv);
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
-
     } catch (err) {
       typingDiv.remove();
 
