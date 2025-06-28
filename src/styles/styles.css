@@ -63,16 +63,15 @@
     }
     .bg-image {
       position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      z-index: -1;
-      background-image: url('picture2.jpg');
-      background-size: cover;
-      background-position: center;
-      filter:blur(4px);
-
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  background-image: url('../picture2.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(4px);
     }
 
     #input-area {
