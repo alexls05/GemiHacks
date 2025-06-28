@@ -42,6 +42,17 @@
     const userInput = document.getElementById('user-input');
     const sendBtn = document.getElementById('send-btn');
 
+    // Fetch and display the initial prompt response
+    async function fetchInitialResponse() {
+      const response = await fetch('/start');
+      const data = await response.json();
+      const initialMessageDiv = document.createElement('div');
+      initialMessageDiv.textContent = `Gemini: ${data.response}`;
+      messagesDiv.appendChild(initialMessageDiv);
+    }
+
+    fetchInitialResponse();
+
     sendBtn.addEventListener('click', async () => {
       const userMessage = userInput.value;
       if (!userMessage) return;
