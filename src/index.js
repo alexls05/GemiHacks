@@ -22,7 +22,9 @@ app.use(bodyParser.json());
 // Pass the AI instance to the Chatbot class
 const chatbot = new Chatbot(aiInstance);
 
-// Serve the HTML file
+// Start the conversation when the server starts
+chatbot.startConversation();
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
@@ -36,6 +38,16 @@ app.post('/chat', async (req, res) => {
   } catch (error) {
     console.error('Error generating response:', error);
     res.status(500).json({ error: 'Error generating response' });
+  }
+});
+
+app.get('/start', async (req, res) => {
+  try {
+    const initialResponse = await chatbot.startConversation();
+    res.json({ response: initialResponse });
+  } catch (error) {
+    console.error('Error starting conversation:', error);
+    res.status(500).json({ error: 'Error starting conversation' });
   }
 });
 
