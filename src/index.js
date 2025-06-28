@@ -3,6 +3,11 @@ import bodyParser from 'body-parser';
 import Chatbot from './chatbot.js';
 import settings from './config/settings.js';
 import { GoogleGenAI } from '@google/genai'; // Import GoogleGenAI
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = settings.PORT;
@@ -17,18 +22,21 @@ app.use(bodyParser.json());
 // Pass the AI instance to the Chatbot class
 const chatbot = new Chatbot(aiInstance);
 
+// Serve the HTML file
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Chat endpoint
 app.post('/chat', async (req, res) => {
   const userInput = req.body.message;
   try {
     const response = await chatbot.generateResponse(userInput);
     res.json({ response });
   } catch (error) {
+    console.error('Error generating response:', error);
     res.status(500).json({ error: 'Error generating response' });
   }
-});
-
-app.get('/', (req, res) => {
-  res.send('Welcome to the Gemini Chatbot API! Use POST /chat to interact with the chatbot.');
 });
 
 app.listen(port, () => {
