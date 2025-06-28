@@ -1,2 +1,18 @@
-.env
+# Ignore node_modules folder
 node_modules/
+
+# Ignore environment configuration files
+.env
+src/config/settings.js
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore logs
+*.log
+logs/
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
