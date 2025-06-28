@@ -8,8 +8,9 @@
     "start": "node src/index.js"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "body-parser": "^1.20.2"
+    "body-parser": "^1.20.2",
+    "dotenv": "^17.0.0",
+    "express": "^4.18.2"
   },
   "author": "Alexander Ley-Soto",
   "license": "MIT",
